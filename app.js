@@ -13,15 +13,20 @@ app.options("*", cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 //Routes
 const talentRoutes = require("./routes/talents");
+const eventRoutes = require("./routes/events");
 
 const api = process.env.API_URL;
 
 app.use(`${api}/talents`, talentRoutes);
+app.use(`${api}/events`, eventRoutes);
 
 //Database
+mongoose.set('useFindAndModify', false)
 mongoose
   .connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,

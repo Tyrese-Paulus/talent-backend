@@ -72,7 +72,7 @@ router.post('/',uploadOptions.single('image'), async (req,res)=>{
     res.send(talent);
 })
 
-router.put('/:id', async (req, res)=> {
+router.put('/:id', uploadOptions.single('image'), async (req, res)=> {
     if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).send('Invalid Product Id');
     }
@@ -109,7 +109,7 @@ router.put('/:id', async (req, res)=> {
 
     if(!updatedTalent)
     return res.status(400).send('the talent cannot be created!')
-
+    console.log(updatedTalent);
     res.send(updatedTalent);
 })
 
