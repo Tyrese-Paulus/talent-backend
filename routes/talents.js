@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose')
 const multer = require('multer');
+var fs = require('fs')
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
@@ -40,7 +41,7 @@ router.get(`/`, async (req, res) =>{
 
 router.get('/:id', async(req,res)=>{
     const talent = await Talent.findById(req.params.id);
-
+    
     if(!talent) {
         res.status(500).json({message: 'The talent was not found.'})
     } 
@@ -54,6 +55,8 @@ router.post('/',uploadOptions.single('image'), async (req,res)=>{
     const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
     let talent = new Talent({        
         name: req.body.name,
+        gender:req.body.gender,
+        chest: req.body.chest,
         height: req.body.height,
         image: `${basePath}${fileName}`,
         bust: req.body.bust,
@@ -95,6 +98,8 @@ router.put('/:id', uploadOptions.single('image'), async (req, res)=> {
         {
             name: req.body.name,
             height: req.body.height,
+            gender:req.body.gender,
+            chest: req.body.chest,
             image: imagepath,
             bust: req.body.bust,
             waist: req.body.waist,
@@ -109,20 +114,59 @@ router.put('/:id', uploadOptions.single('image'), async (req, res)=> {
 
     if(!updatedTalent)
     return res.status(400).send('the talent cannot be created!')
-    console.log(updatedTalent);
     res.send(updatedTalent);
 })
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', async(req, res)=>{
+    const talentInfo = await Talent.findById(req.params.id);
+
+    let talentImage = talentInfo.image
+    let edit = talentImage.replace('http://localhost:3000/public/uploads', '')
+
+    let talentImages = talentInfo.images
+    const newImages = talentImages.map(x => x.replace('http://localhost:3000/public/uploads', ''))
+  
+
+    function deleteFiles(files, callback){
+        let i = files.length;
+        files.forEach(function(filepath){
+          fs.unlink(`public/uploads/${filepath}`, function(err) {
+            i--;
+            if (err) {
+              callback(err);
+              return;
+            } else if (i <= 0) {
+              callback(null);
+            }
+          });
+        });
+      }
+      
+
     Talent.findByIdAndRemove(req.params.id).then(talent =>{
         if(talent) {
+
+            fs.unlink(`public/uploads${edit}`,(err) =>{
+                if(err) throw err;
+            })
+
+            deleteFiles(newImages, function(err) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log('all files removed');
+                }
+              });
+            
             return res.status(200).json({success: true, message: 'the talent is deleted!'})
+
         } else {
             return res.status(404).json({success: false , message: "talent not found!"})
         }
     }).catch(err=>{
        return res.status(500).json({success: false, error: err}) 
     })
+
 })
 
 router.put('/gallery-images/:id', uploadOptions.array('images', 10), async (req, res) => {

@@ -6,11 +6,19 @@ const talentSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    gender: {
+        type: String,
+        default: '',
+    },
     height:{
         type: Number,
-        required: true,
+        default: '',
     },
     bust: {
+        type: Number,
+        default: '',
+    },
+    chest: {
         type: Number,
         default: '',
     },
