@@ -10,6 +10,10 @@ const talentSchema = mongoose.Schema({
         type: String,
         default: '',
     },
+    organisation:{
+        type: String,
+        default: '',
+    },
     height:{
         type: Number,
         default: '',
