@@ -204,10 +204,10 @@ router.delete('/:id', async(req, res)=>{
     const talentInfo = await Talent.findById(req.params.id);
 
     let talentImage = talentInfo.image
-    let edit = talentImage.replace('http://localhost:3000/public/uploads', '')
+    let edit = talentImage.replace('https://talent-backend-tp.herokuapp.com/public/uploads', '')
 
     let talentImages = talentInfo.images
-    const newImages = talentImages.map(x => x.replace('http://localhost:3000/public/uploads', ''))
+    const newImages = talentImages.map(x => x.replace('https://talent-backend-tp.herokuapp.com/public/uploads', ''))
   
 
     function deleteFiles(files, callback){
