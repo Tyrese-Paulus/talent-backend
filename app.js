@@ -12,7 +12,7 @@ app.options("*", cors());
 //middleware
 app.use(express.json());
 app.use(morgan("tiny"));
-app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
+app.use("/public/Uploads", express.static(__dirname + "/public/Uploads"));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.enable('trust proxy');

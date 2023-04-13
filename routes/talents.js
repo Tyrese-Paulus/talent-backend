@@ -131,7 +131,7 @@ router.post('/',uploadOptions.single('image'), async (req,res)=>{
     const file = req.file;
     if (!file) return res.status(400).send('No image in the request');
     const fileName = file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+    const basePath = `${req.protocol}://${req.get('host')}/public/Uploads/`;
 
     let talent = new Talent({        
         name: req.body.name,
