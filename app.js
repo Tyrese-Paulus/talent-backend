@@ -15,6 +15,7 @@ app.use(morgan("tiny"));
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.enable('trust proxy');
 
 //Routes
 const talentRoutes = require("./routes/talents");
