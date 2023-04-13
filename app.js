@@ -45,5 +45,5 @@ mongoose
 
 //Server
 app.listen(PORT, () => {
-  console.log("server is running http://localhost:3000");
+  console.log("server is running");
 });

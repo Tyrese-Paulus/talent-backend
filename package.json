@@ -1,7 +1,7 @@
 {
-  "name": "eshop",
+  "name": "talent",
   "version": "1.0.0",
-  "description": "backend of the eshop",
+  "description": "backend of the talent",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
