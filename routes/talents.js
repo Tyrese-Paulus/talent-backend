@@ -134,7 +134,6 @@ router.post('/',uploadOptions.single('image'), async (req,res)=>{
     const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
     console.log(req.protocol);
-    console.log(fileName);
     console.log(basePath);
     
     let talent = new Talent({        
