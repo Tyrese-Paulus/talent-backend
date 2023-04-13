@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const multer = require('multer');
 var fs = require('fs')
 
+//IMAGE STORAGE SETUP
+
 const FILE_TYPE_MAP = {
     'image/png': 'png',
     'image/jpeg': 'jpeg',
@@ -30,8 +32,83 @@ const storage = multer.diskStorage({
 
 const uploadOptions = multer({ storage: storage });
 
+
+//GET REQUESTS
+
 router.get(`/`, async (req, res) =>{
     const talentList = await Talent.find();
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/johannesburg/male/demo`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Johannesburg", gender: "Male", organisation: "Demo"});
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/johannesburg/female/demo`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Johannesburg", gender: "Female", organisation: "Demo"});
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/johannesburg/male/commercial`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Johannesburg", gender: "Male", organisation: "Commercial"});
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/johannesburg/female/commercial`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Johannesburg", gender: "Female", organisation: "Commercial"});
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/cape-town/male/demo`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Cape Town", gender: "Male", organisation: "Demo"});
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/cape-town/female/demo`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Cape Town", gender: "Male", organisation: "Demo"});
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/cape-town/male/commercial`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Cape Town", gender: "Male", organisation: "Commercial"});
+
+    if(!talentList) {
+        res.status(500).json({success: false})
+    } 
+    res.send(talentList);
+})
+
+router.get(`/cape-town/female/commercial`, async (req, res) =>{
+    const talentList = await Talent.find({location: "Cape Town", gender: "Male", organisation: "Commercial"});
 
     if(!talentList) {
         res.status(500).json({success: false})
@@ -47,6 +124,8 @@ router.get('/:id', async(req,res)=>{
     } 
     res.status(200).send(talent);
 })
+
+//POST REQUESTS
 
 router.post('/',uploadOptions.single('image'), async (req,res)=>{ 
     const file = req.file;
@@ -67,6 +146,7 @@ router.post('/',uploadOptions.single('image'), async (req,res)=>{
         shoe: req.body.shoe,
         hair: req.body.hair,
         eyes: req.body.eyes,
+        location: req.body.location,
     })
     talent = await talent.save();
 
@@ -110,6 +190,7 @@ router.put('/:id', uploadOptions.single('image'), async (req, res)=> {
             shoe: req.body.shoe,
             hair: req.body.hair,
             eyes: req.body.eyes,
+            location: req.body.location,
         },
         { new: true}
     )
