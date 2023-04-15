@@ -16,6 +16,10 @@ app.use("/public/Uploads", express.static(__dirname + "/public/Uploads"));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.enable('trust proxy');
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 //Routes
 const talentRoutes = require("./routes/talents");
