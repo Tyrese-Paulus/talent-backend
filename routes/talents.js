@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
         if (isValid) {
             uploadError = null;
         }
-        cb(uploadError, 'public/uploads');
+        cb(uploadError, 'public/Uploads');
     },
     filename: function (req, file, cb) {
         const fileName = file.originalname.split(' ').join('-');
@@ -170,7 +170,7 @@ router.put('/:id', uploadOptions.single('image'), async (req, res)=> {
 
     if (file) {
         const fileName = file.filename;
-        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+        const basePath = `${req.protocol}://${req.get('host')}/public/Uploads/`;
         imagepath = `${basePath}${fileName}`;
     } else {
         imagepath = talent.image;
@@ -206,10 +206,10 @@ router.delete('/:id', async(req, res)=>{
     const talentInfo = await Talent.findById(req.params.id);
 
     let talentImage = talentInfo.image
-    let edit = talentImage.replace('https://talent-backend-tp.herokuapp.com/public/uploads', '')
+    let edit = talentImage.replace('https://talent-backend-tp.herokuapp.com/public/Uploads', '')
 
     let talentImages = talentInfo.images
-    const newImages = talentImages.map(x => x.replace('https://talent-backend-tp.herokuapp.com/public/uploads', ''))
+    const newImages = talentImages.map(x => x.replace('https://talent-backend-tp.herokuapp.com/public/Uploads', ''))
   
 
     function deleteFiles(files, callback){
@@ -260,7 +260,7 @@ router.put('/gallery-images/:id', uploadOptions.array('images', 10), async (req,
     }
     const files = req.files;
     let imagesPaths = [];
-    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+    const basePath = `${req.protocol}://${req.get('host')}/public/Uploads/`;
 
     if (files) {
         files.map((file) => {
