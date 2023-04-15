@@ -43,7 +43,8 @@ router.get(`/`, async (req, res) =>{
     } 
     res.send(talentList);
 
-    console.log(req);
+    console.log(req.protocol);
+    console.log(req.get('Host'));
 })
 
 router.get(`/johannesburg/male/demo`, async (req, res) =>{
