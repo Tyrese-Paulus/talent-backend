@@ -42,6 +42,8 @@ router.get(`/`, async (req, res) =>{
         res.status(500).json({success: false})
     } 
     res.send(talentList);
+
+    console.log(req);
 })
 
 router.get(`/johannesburg/male/demo`, async (req, res) =>{
