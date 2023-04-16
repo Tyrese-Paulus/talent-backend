@@ -90,7 +90,7 @@ router.get(`/cape-town/male/demo`, async (req, res) =>{
 })
 
 router.get(`/cape-town/female/demo`, async (req, res) =>{
-    const talentList = await Talent.find({location: "Cape Town", gender: "Male", organisation: "Demo"});
+    const talentList = await Talent.find({location: "Cape Town", gender: "Female", organisation: "Demo"});
 
     if(!talentList) {
         res.status(500).json({success: false})
@@ -108,7 +108,7 @@ router.get(`/cape-town/male/commercial`, async (req, res) =>{
 })
 
 router.get(`/cape-town/female/commercial`, async (req, res) =>{
-    const talentList = await Talent.find({location: "Cape Town", gender: "Male", organisation: "Commercial"});
+    const talentList = await Talent.find({location: "Cape Town", gender: "Female", organisation: "Commercial"});
 
     if(!talentList) {
         res.status(500).json({success: false})
@@ -131,7 +131,7 @@ router.post('/',uploadOptions.single('image'), async (req,res)=>{
     const file = req.file;
     if (!file) return res.status(400).send('No image in the request');
     const fileName = file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/Uploads/`;
+    const basePath = `https://talent-backend-tp.herokuapp.com/public/Uploads/`;
     console.log(basePath);
 
     let talent = new Talent({        
