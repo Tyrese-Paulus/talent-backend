@@ -131,7 +131,7 @@ router.post('/',uploadOptions.single('image'), async (req,res)=>{
     const file = req.file;
     if (!file) return res.status(400).send('No image in the request');
     const fileName = file.filename;
-    const basePath = `https://talent-backend-tp.herokuapp.com/public/Uploads/`;
+    const basePath = `${req.protocol}://${req.get('host')}/public/Uploads/`;
     console.log(basePath);
 
     let talent = new Talent({        
